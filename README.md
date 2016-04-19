@@ -44,4 +44,4 @@ Then:
 
     git clone pmq20@localhost:/path/to/repo.git
 
-in which case the request will be delegated to http://localhost/path/to/repo.git
+and the request will be delegated to `http://localhost/path/to/repo.git`.
