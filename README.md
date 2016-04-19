@@ -16,6 +16,6 @@ which delegates git pull/push requests to a git http backend.
 
 ## usage
 
-    'chsh' -s $(command -v ssh2http) <user>
-    'git clone' <user>`@localhost:/path/to/repo.git`
-    'ssh' <user>`@localhost`
+    chsh -s $(command -v ssh2http) <user>
+    git clone <user>@localhost:/path/to/repo.git
+    ssh <user>@localhost
