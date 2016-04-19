@@ -30,12 +30,18 @@ Or install it yourself as:
 
 Add this line to your ~<user>/.ssh/authorized_keys:
 
-    command="source $HOME/.profile && cd <your_project_path> && bundle exec ssh2http",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty <your_pub_key>
+    command="source $HOME/.profile && cd <your_project_path> && bundle exec ssh2http <HTTP destination>",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty <your_pub_key>
 
 Or if you prefer to install the gem globally:
 
-    command="source $HOME/.profile && ssh2http",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty <your_pub_key>
+    command="source $HOME/.profile && ssh2http <HTTP destination>",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty <your_pub_key>
+
+For example,
+
+    command="source $HOME/.profile && cd /Users/pmq20/ssh2http && bundle exec ssh2http http://localhost",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty ssh-rsa XXXXXXXXXXXXXXXXXXXX pmq2001@gmail.com
 
 Then:
 
-    git clone <user>@localhost:/path/to/repo.git
+    git clone pmq20@localhost:/path/to/repo.git
+
+in which case the request will be delegated to http://localhost/path/to/repo.git

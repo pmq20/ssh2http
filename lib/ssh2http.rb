@@ -1,7 +1,8 @@
 require "ssh2http/version"
 
 class Ssh2http
-  def initialize(cmd)
+  def initialize(destination, cmd)
+    @destination = destination
     @cmd = cmd
   end
   
@@ -11,6 +12,7 @@ class Ssh2http
 
   def debug
     var('@cmd')
+    var('@destination')
     var('RUBY_VERSION')
     var('::Ssh2http::VERSION')
     ENV.each do |k,v|
