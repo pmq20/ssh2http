@@ -10,14 +10,32 @@ which delegates git pull/push requests to a git http backend.
 [![](http://inch-ci.org/github/pmq20/ssh2http.svg?branch=master)](http://inch-ci.org/github/pmq20/ssh2http?branch=master)
 
 
-## installation
+## Installation
 
-    gem install ssh2http
+Add this line to your application's Gemfile:
 
-## usage
+```ruby
+gem 'ssh2http'
+```
 
-    chsh -s $(command -v ssh2http) <user>
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install ssh2http
+
+## Usage
+
+Add this line to your ~<user>/.ssh/authorized_keys:
+
+    command="source $HOME/.profile && cd <your_project_path> && bundle exec ssh2http",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty <your_pub_key>
+
+Or if you prefer to install the gem globally:
+
+    command="source $HOME/.profile && ssh2http",no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty <your_pub_key>
+
+Then:
+
     git clone <user>@localhost:/path/to/repo.git
-    ssh <user>@localhost
-
-hint: you may need to add ssh2http to your `/etc/shells` first.
