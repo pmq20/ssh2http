@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{delegating git ssh requests to git http backends}
   spec.description   = %q{A restricted login shell for Git-only SSH access, which delegates git pull/push requests to a git http backend.}
   spec.homepage      = 'https://github.com/pmq20/ssh2http'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
