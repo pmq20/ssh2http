@@ -19,3 +19,5 @@ which delegates git pull/push requests to a git http backend.
     chsh -s $(command -v ssh2http) <user>
     git clone <user>@localhost:/path/to/repo.git
     ssh <user>@localhost
+
+hint: you may need to add ssh2http to your `/etc/shells` first.

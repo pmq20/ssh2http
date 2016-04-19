@@ -4,14 +4,4 @@ lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'ssh2http'
 
-unless ENV['SSH_CONNECTION']
-  puts "Only ssh allowed"
-  exit
-end
-original_cmd = ENV['SSH_ORIGINAL_COMMAND']
-
-if Ssh2http.exec(original_cmd)
-  exit 0
-else
-  exit 1
-end
+Ssh2http.run!
