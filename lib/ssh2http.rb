@@ -20,11 +20,29 @@ class Ssh2http
 
   def upload!
     open(url('/info/refs?service=git-upload-pack')) do |f|
-      f.gets # skip the first line
-      f.read(4) # skip 0000
-      f.each_line {|line| puts line}
+      f.each_line do |line|
+        if "001e# service=git-upload-pack\n" == line
+          f.read(4) # skip "0000"
+          next
+        end
+        print line
+      end
     end
-    exit 0
+    STDOUT.flush
+
+    input = ''
+    while line = STDIN.gets
+      input += line
+      break if line =~ /0009done\n$/
+    end
+    
+    url = URI.parse(url('/git-upload-pack'))
+    http = Net::HTTP.new(url.host, url.port)
+    request = Net::HTTP::Post.new(url.path)
+    request.body = input
+    request['Content-Type'] = 'application/x-git-upload-pack-request'
+    response = http.request(request)
+    print response.body
   end
 
   def receive!

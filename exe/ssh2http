@@ -8,3 +8,4 @@ Ssh2http.die "Only ssh allowed." unless ENV['SSH_CONNECTION']
 Ssh2http.die "Please provide a destination url." unless ARGV[0] && ARGV[0].length > 0
 
 Ssh2http.new(ARGV[0], *ENV['SSH_ORIGINAL_COMMAND'].to_s.split).run!
+exit 0
