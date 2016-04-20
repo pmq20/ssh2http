@@ -35,7 +35,7 @@ class Ssh2http
       input += line
       break if line =~ /0009done\n$/
     end
-    
+
     url = URI.parse(url('/git-upload-pack'))
     http = Net::HTTP.new(url.host, url.port)
     request = Net::HTTP::Post.new(url.path)
@@ -43,10 +43,30 @@ class Ssh2http
     request['Content-Type'] = 'application/x-git-upload-pack-request'
     response = http.request(request)
     print response.body
+    STDOUT.flush
   end
 
   def receive!
-    raise NotImplementedError
+    open(url('/info/refs?service=git-receive-pack')) do |f|
+      f.each_line do |line|
+        if "001f# service=git-receive-pack\n" == line
+          f.read(4) # skip "0000"
+          next
+        end
+        print line
+      end
+    end
+    STDOUT.flush
+
+    input = STDIN.read
+    url = URI.parse(url('/git-receive-pack'))
+    http = Net::HTTP.new(url.host, url.port)
+    request = Net::HTTP::Post.new(url.path)
+    request.body = input
+    request['Content-Type'] = 'application/x-git-receive-pack-request'
+    response = http.request(request)
+    print response.body
+    STDOUT.flush
   end
 
   def cmd
