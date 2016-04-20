@@ -37,13 +37,17 @@ class Ssh2http
     end
 
     url = URI.parse(url('/git-upload-pack'))
-    http = Net::HTTP.new(url.host, url.port)
-    request = Net::HTTP::Post.new(url.path)
-    request.body = input
-    request['Content-Type'] = 'application/x-git-upload-pack-request'
-    response = http.request(request)
-    print response.body
-    STDOUT.flush
+    Net::HTTP.start(url.host, url.port) do |http|
+      request = Net::HTTP::Post.new url.path
+      request.body = input
+      request['Content-Type'] = 'application/x-git-upload-pack-request'
+      http.request request do |response|
+        response.read_body do |chunk|
+          STDOUT.write chunk
+          STDOUT.flush
+        end
+      end
+    end
   end
 
   def receive!
